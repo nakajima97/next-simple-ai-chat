@@ -1,15 +1,16 @@
 import type { AppProps } from 'next/app';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import { CssBaseline } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { themeOptions } from '@/styles/themeOptions';
 
 export default function App({ Component, pageProps }: AppProps) {
+	const theme = createTheme(themeOptions);
+
 	return (
 		<>
 			<CssBaseline />
-			<Component {...pageProps} />;
+			<ThemeProvider theme={theme}>
+				<Component {...pageProps} />
+			</ThemeProvider>
 		</>
 	);
 }

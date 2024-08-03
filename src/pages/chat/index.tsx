@@ -1,19 +1,22 @@
+import { useTheme } from '@mui/material/styles';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 const Chat = () => {
+  const theme = useTheme();
+
 	return (
 		<Box sx={{ display: 'flex', height: '100vh' }}>
-			<Box sx={{width: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'gray'}}>
+			<Box sx={{width: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#94D3BA'}}>
         <Box>
           ChatApp
         </Box>
         <Box>
-        <Button variant='outlined'>ログアウト</Button>
+        <Button variant='contained'>ログアウト</Button>
         </Box>
       </Box>
 			<Box sx={{ flexGrow: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Box>
-          <Typography variant='h5' sx={{borderBottom: '1px solid', padding: '10px'}}>Chat</Typography>
+          <Typography variant='h5' sx={{padding: '10px', backgroundColor: theme.palette.primary.main}}>Chat</Typography>
         </Box>
 				<Box sx={{ flexGrow: 1 }}>会話履歴</Box>
         <Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
