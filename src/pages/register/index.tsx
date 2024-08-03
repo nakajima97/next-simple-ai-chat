@@ -89,7 +89,7 @@ export default function Home() {
 							<Grid item xs>
 							</Grid>
 							<Grid item>
-								<Link href="#" variant="body2">
+								<Link href="/" variant="body2">
 									ログイン画面に戻る
 								</Link>
 							</Grid>

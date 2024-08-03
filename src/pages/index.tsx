@@ -11,10 +11,14 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+	const router = useRouter();
+
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		console.log('submit');
+		router.push('/chat');
 	};
 
 	return (
@@ -98,7 +102,7 @@ export default function Home() {
 								</Link>
 							</Grid>
 							<Grid item>
-								<Link href="#" variant="body2">
+								<Link href="/register" variant="body2">
 									新規登録
 								</Link>
 							</Grid>
