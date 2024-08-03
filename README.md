@@ -1,6 +1,10 @@
 ## versions
 - Node.js 22.4.1
 
+## setup
+`yarn`
+`yarn dev`
+
 ## format
 check  
 `yarn biome format ./src`

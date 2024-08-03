@@ -3,22 +3,16 @@ import {
 	Avatar,
 	Box,
 	Button,
-	Checkbox,
-	FormControlLabel,
 	Grid,
 	Link,
 	Paper,
 	TextField,
 	Typography,
 } from '@mui/material';
-import { useRouter } from 'next/router';
 
-export default function Home() {
-	const router = useRouter();
-
-	const handleSubmit = () => {
+export default function Register() {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		console.log('submit');
-		router.push('/chat');
 	};
 
 	return (
@@ -55,9 +49,14 @@ export default function Home() {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Sign in
+						Sign up
 					</Typography>
-					<Box sx={{ mt: 1 }}>
+					<Box
+						component="form"
+						noValidate
+						onSubmit={handleSubmit}
+						sx={{ mt: 1 }}
+					>
 						<TextField
 							margin="normal"
 							required
@@ -78,28 +77,18 @@ export default function Home() {
 							id="password"
 							autoComplete="current-password"
 						/>
-						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="アカウントを記憶する"
-						/>
 						<Button
-							type="button"
+							type="submit"
 							fullWidth
 							variant="contained"
 							sx={{ mt: 3, mb: 2 }}
-							onClick={handleSubmit}
 						>
-							Sign In
+							SIGN UP
 						</Button>
 						<Grid container>
-							<Grid item xs>
-								<Link href="#" variant="body2">
-									パスワードを忘れた場合はこちら
-								</Link>
-							</Grid>
 							<Grid item>
-								<Link href="/register" variant="body2">
-									新規登録
+								<Link href="/" variant="body2">
+									ログイン画面に戻る
 								</Link>
 							</Grid>
 						</Grid>
