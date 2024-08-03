@@ -81,7 +81,7 @@ export default function Home() {
 						/>
 						<FormControlLabel
 							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
+							label="アカウントを記憶する"
 						/>
 						<Button
 							type="submit"
@@ -94,12 +94,12 @@ export default function Home() {
 						<Grid container>
 							<Grid item xs>
 								<Link href="#" variant="body2">
-									Forgot password?
+									パスワードを忘れた場合はこちら
 								</Link>
 							</Grid>
 							<Grid item>
 								<Link href="#" variant="body2">
-									{"Don't have an account? Sign Up"}
+									新規登録
 								</Link>
 							</Grid>
 						</Grid>
