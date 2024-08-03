@@ -6,12 +6,12 @@ const Chat = () => {
 
 	return (
 		<Box sx={{ display: 'flex', height: '100vh' }}>
-			<Box sx={{width: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#94D3BA'}}>
+			<Box sx={{width: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
         <Box>
-          ChatApp
+          <Typography variant='h5' sx={{padding: '10px'}}>ChatApp</Typography>
         </Box>
         <Box>
-        <Button variant='contained'>ログアウト</Button>
+        <Button variant='outlined' sx={{width: '100%'}}>ログアウト</Button>
         </Box>
       </Box>
 			<Box sx={{ flexGrow: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
