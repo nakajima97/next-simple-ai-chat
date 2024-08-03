@@ -86,7 +86,6 @@ export default function Register() {
 							SIGN UP
 						</Button>
 						<Grid container>
-							<Grid item xs></Grid>
 							<Grid item>
 								<Link href="/" variant="body2">
 									ログイン画面に戻る

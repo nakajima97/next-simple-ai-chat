@@ -1,16 +1,19 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { BallonProps, Balloon } from '@/components/Balloon';
+import { type BallonProps, Balloon } from '@/components/Balloon';
 
 const Chat = () => {
 	const theme = useTheme();
 
-  const chatHistory: BallonProps[] = [
-    { text: 'こんにちは！', direction: 'left' },
-    { text: 'こんにちは、こちらこそ！', direction: 'right' },
-    { text: 'MUIで吹き出しコンポーネントを作成しています。', direction: 'left' },
-  ];
+	const chatHistory: BallonProps[] = [
+		{ text: 'こんにちは！', direction: 'left' },
+		{ text: 'こんにちは、こちらこそ！', direction: 'right' },
+		{
+			text: 'MUIで吹き出しコンポーネントを作成しています。',
+			direction: 'left',
+		},
+	];
 
 	return (
 		<Box sx={{ display: 'flex', height: '100dvh' }}>
@@ -52,12 +55,15 @@ const Chat = () => {
 						Chat
 					</Typography>
 				</Box>
-				<Box sx={{ flexGrow: 1, padding: '10px', width: '100%'}}>
-					{chatHistory.map((chat, index) => (
-            <Balloon key={index} text={chat.text} direction={chat.direction} />
-          ))}
+				<Box sx={{ flexGrow: 1, padding: '10px', width: '100%' }}>
+					{chatHistory.map((chat) => (
+						<Balloon
+							key={chat.text}
+							text={chat.text}
+							direction={chat.direction}
+						/>
+					))}
 				</Box>
-				<Box sx={{ display: 'flex' }}></Box>
 				<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
 					<TextField label="メッセージを入力" sx={{ flexGrow: 1 }} />
 					<Button variant="contained">送信</Button>
