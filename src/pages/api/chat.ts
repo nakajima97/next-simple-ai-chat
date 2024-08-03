@@ -41,8 +41,8 @@ const handler = async (
   const decoder = new TextDecoder("utf-8");
 
   // SSEであることを明示
-  res.setHeader("Content-type", "application/json");
-  res.setHeader("Cache-Control", "no-cahce");
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
   // レスポンスを返す
@@ -56,8 +56,9 @@ const handler = async (
       break;
     }
 
-    const data = decoder.decode(value)
-    res.write(`data: ${data}\n\n`);
+    const decodedValue = decoder.decode(value);
+    res.write(`data: ${decodedValue}\n\n\n`);
+    console
   }
 
   // レスポンスを閉じる
