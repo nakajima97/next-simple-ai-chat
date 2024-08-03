@@ -49,7 +49,7 @@ export default function Register() {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-            Sign up
+						Sign up
 					</Typography>
 					<Box
 						component="form"
@@ -86,8 +86,7 @@ export default function Register() {
 							SIGN UP
 						</Button>
 						<Grid container>
-							<Grid item xs>
-							</Grid>
+							<Grid item xs></Grid>
 							<Grid item>
 								<Link href="/" variant="body2">
 									ログイン画面に戻る
