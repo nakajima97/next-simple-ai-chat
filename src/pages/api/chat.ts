@@ -34,7 +34,7 @@ const handler = async (
     stream: true,
   })
 
-  // ChatGPTからのsteramを読み取る
+  // ChatGPTからのstreamを読み取る
   const reader = completions.toReadableStream().getReader();
 
   // レスポンスをデコードするためのTextDecoderを作成
