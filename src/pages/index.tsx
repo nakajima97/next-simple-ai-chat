@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 export default function Home() {
 	const router = useRouter();
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = () => {
 		console.log('submit');
 		router.push('/chat');
 	};
@@ -58,9 +58,6 @@ export default function Home() {
 						Sign in
 					</Typography>
 					<Box
-						component="form"
-						noValidate
-						onSubmit={handleSubmit}
 						sx={{ mt: 1 }}
 					>
 						<TextField
@@ -88,10 +85,11 @@ export default function Home() {
 							label="アカウントを記憶する"
 						/>
 						<Button
-							type="submit"
+							type="button"
 							fullWidth
 							variant="contained"
 							sx={{ mt: 3, mb: 2 }}
+							onClick={handleSubmit}
 						>
 							Sign In
 						</Button>

@@ -10,7 +10,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-export default function Home() {
+export default function Register() {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		console.log('submit');
 	};
