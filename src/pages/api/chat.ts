@@ -16,10 +16,15 @@ const handler = async (
     return res.status(405).end();
   }
 
-  const { messages } = req.body;
+  let messages: ChatCompletionMessageParam[] = []
+  try {
+    ({ messages } = req.body);
+  } catch (error) {
+    return res.status(422).json({ message: "Invalid message" });
+  }
 
-  if (!messages) {
-    return res.status(400).json({ message: "Missing message" });
+  if (!messages || messages.length === 0) {
+    return res.status(422).json({ message: "Invalid message" });
   }
 
   // completions = 完成、完了、終了
