@@ -14,7 +14,10 @@ const Chat = () => {
 		setMessage(event.target.value);
 	}
 
+	// メッセージ送信とChatGPTからのレスポンスを表示する
 	const handleSendMessage = async () => {
+		setChatHistory((prevChatHistory) => [...prevChatHistory, { role: 'user', content: message, id: Date.now().toString() }]);
+
 		const messages = [
 			...chatHistory,
 			{ role: 'user', content: message },
@@ -36,10 +39,13 @@ const Chat = () => {
 			return false
 		}
 
+		setChatHistory((prevChatHistory) => [...prevChatHistory, { role: 'assistant', content: '', id: Date.now().toString() }]);
+
 		while (true) {
 			const { done, value } = await reader.read();
 			if (done) break;
 			if (!value) continue;
+
 			const lines = decoder.decode(value);
 			const jsons = lines
 				.split('data: ') // 各行は data: というキーワードで始まる
@@ -51,10 +57,15 @@ const Chat = () => {
 					}
 					const chunk = JSON.parse(json);
 					const text = chunk.choices[0].delta.content || '';
-					console.log({text})
 					// textの値をchatHistoryに追加
 					// 新しいメッセージをチャット履歴に追加
-					
+					setChatHistory((prevChat) => prevChat.map((chat, index) => {
+						const lastChatIndex = prevChat.length - 1;
+						if (index === lastChatIndex) {
+							return { ...chat, content: prevChat[lastChatIndex].content + text };
+						}
+						return chat;
+					}));
 				} catch (error) {
 					console.error(error);
 				}
@@ -102,10 +113,10 @@ const Chat = () => {
 						Chat
 					</Typography>
 				</Box>
-				<Box sx={{ flexGrow: 1, padding: '10px', width: '100%' }}>
+				<Box sx={{ flexGrow: 1, padding: '10px', width: '100%', overflowY: 'scroll' }}>
 					{chatHistory.map((chat) => (
 						<Balloon
-							key={chat.content}
+							key={chat.id}
 							text={chat.content}
 							direction={chat.role === 'user' ? 'left' : 'right'}
 						/>

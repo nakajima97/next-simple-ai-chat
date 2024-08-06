@@ -1,6 +1,7 @@
 type Message = {
-  role: "system" | "user" | "bot";
+  role: "system" | "user" | "assistant";
   content: string;
+  id: string;
 };
 
 type Messages = Message[];

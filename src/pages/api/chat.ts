@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
-import { ChatCompletionContentPart } from "openai/resources/index.mjs";
 import { ChatCompletionMessageParam } from "openai/src/resources/index.js";
 
 const configuration = {
@@ -58,7 +57,6 @@ const handler = async (
 
     const decodedValue = decoder.decode(value);
     res.write(`data: ${decodedValue}\n\n\n`);
-    console
   }
 
   // レスポンスを閉じる
