@@ -2,8 +2,8 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import { Balloon } from '@/components/Balloon';
-import { useState } from 'react';
 import type { Messages } from '@/types/openAi';
+import { useState } from 'react';
 
 const Chat = () => {
 	const [chatHistory, setChatHistory] = useState<Messages>([]);
@@ -12,16 +12,17 @@ const Chat = () => {
 
 	const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(event.target.value);
-	}
+	};
 
 	// メッセージ送信とChatGPTからのレスポンスを表示する
 	const handleSendMessage = async () => {
-		setChatHistory((prevChatHistory) => [...prevChatHistory, { role: 'user', content: message, id: Date.now().toString() }]);
+		setChatHistory((prevChatHistory) => [
+			...prevChatHistory,
+			{ role: 'user', content: message, id: Date.now().toString() },
+		]);
+		setMessage('');
 
-		const messages = [
-			...chatHistory,
-			{ role: 'user', content: message },
-		];
+		const messages = [...chatHistory, { role: 'user', content: message }];
 
 		const response = await fetch('/api/chat', {
 			method: 'POST',
@@ -31,15 +32,18 @@ const Chat = () => {
 			body: JSON.stringify({ messages }),
 		});
 
-		const reader = response.body?.getReader()
-		const decoder = new TextDecoder('utf-8')
+		const reader = response.body?.getReader();
+		const decoder = new TextDecoder('utf-8');
 
 		if (!reader) {
-			console.error('Failed to get reader')
-			return false
+			console.error('Failed to get reader');
+			return false;
 		}
 
-		setChatHistory((prevChatHistory) => [...prevChatHistory, { role: 'assistant', content: '', id: Date.now().toString() }]);
+		setChatHistory((prevChatHistory) => [
+			...prevChatHistory,
+			{ role: 'assistant', content: '', id: Date.now().toString() },
+		]);
 
 		while (true) {
 			const { done, value } = await reader.read();
@@ -49,7 +53,8 @@ const Chat = () => {
 			const lines = decoder.decode(value);
 			const jsons = lines
 				.split('data: ') // 各行は data: というキーワードで始まる
-				.map(line => line.trim()).filter(s => s); // 余計な空行を取り除く
+				.map((line) => line.trim())
+				.filter((s) => s); // 余計な空行を取り除く
 			for (const json of jsons) {
 				try {
 					if (json === '[DONE]') {
@@ -59,19 +64,24 @@ const Chat = () => {
 					const text = chunk.choices[0].delta.content || '';
 					// textの値をchatHistoryに追加
 					// 新しいメッセージをチャット履歴に追加
-					setChatHistory((prevChat) => prevChat.map((chat, index) => {
-						const lastChatIndex = prevChat.length - 1;
-						if (index === lastChatIndex) {
-							return { ...chat, content: prevChat[lastChatIndex].content + text };
-						}
-						return chat;
-					}));
+					setChatHistory((prevChat) =>
+						prevChat.map((chat, index) => {
+							const lastChatIndex = prevChat.length - 1;
+							if (index === lastChatIndex) {
+								return {
+									...chat,
+									content: prevChat[lastChatIndex].content + text,
+								};
+							}
+							return chat;
+						}),
+					);
 				} catch (error) {
 					console.error(error);
 				}
 			}
 		}
-	}
+	};
 
 	return (
 		<Box sx={{ display: 'flex', height: '100dvh' }}>
@@ -113,7 +123,14 @@ const Chat = () => {
 						Chat
 					</Typography>
 				</Box>
-				<Box sx={{ flexGrow: 1, padding: '10px', width: '100%', overflowY: 'scroll' }}>
+				<Box
+					sx={{
+						flexGrow: 1,
+						padding: '10px',
+						width: '100%',
+						overflowY: 'scroll',
+					}}
+				>
 					{chatHistory.map((chat) => (
 						<Balloon
 							key={chat.id}
@@ -123,8 +140,14 @@ const Chat = () => {
 					))}
 				</Box>
 				<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
-					<TextField label="メッセージを入力" sx={{ flexGrow: 1 }} onChange={handleChangeMessage}/>
-					<Button variant="contained" onClick={handleSendMessage}>送信</Button>
+					<TextField
+						label="メッセージを入力"
+						sx={{ flexGrow: 1 }}
+						onChange={handleChangeMessage}
+					/>
+					<Button variant="contained" onClick={handleSendMessage}>
+						送信
+					</Button>
 				</Box>
 			</Box>
 		</Box>
