@@ -23,6 +23,7 @@
     "@mui/material-nextjs": "^5.16.6",
     "@testing-library/dom": "^10.4.0",
     "next": "14.2.5",
+    "openai": "^4.54.0",
     "react": "^18",
     "react-dom": "^18",
     "vite": "^5.3.5"
