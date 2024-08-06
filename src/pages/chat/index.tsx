@@ -20,9 +20,10 @@ const Chat = () => {
 			...prevChatHistory,
 			{ role: 'user', content: message, id: Date.now().toString() },
 		]);
-		setMessage('');
 
 		const messages = [...chatHistory, { role: 'user', content: message }];
+
+		setMessage('');
 
 		const response = await fetch('/api/chat', {
 			method: 'POST',
@@ -144,6 +145,7 @@ const Chat = () => {
 						label="メッセージを入力"
 						sx={{ flexGrow: 1 }}
 						onChange={handleChangeMessage}
+						value={message}
 					/>
 					<Button variant="contained" onClick={handleSendMessage}>
 						送信
