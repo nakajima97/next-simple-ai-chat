@@ -41,6 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	res.setHeader('Content-Type', 'text/event-stream');
 	res.setHeader('Cache-Control', 'no-cache');
 	res.setHeader('Connection', 'keep-alive');
+	res.setHeader('Content-Encoding', 'none');
 
 	// レスポンスを返す
 	res.writeHead(200);
@@ -54,7 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 
 		const decodedValue = decoder.decode(value);
-		res.write(`data: ${decodedValue}\n\n\n`);
+		res.write(`data: ${decodedValue}\n\n`);
 	}
 
 	// レスポンスを閉じる
