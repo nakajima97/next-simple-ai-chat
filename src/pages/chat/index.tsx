@@ -5,6 +5,8 @@ import { Balloon } from '@/components/Balloon';
 import type { Messages } from '@/types/openAi';
 import { useState } from 'react';
 
+const chatContainerId = 'chat-container';
+
 const Chat = () => {
 	const [chatHistory, setChatHistory] = useState<Messages>([]);
 	const [message, setMessage] = useState('');
@@ -12,6 +14,14 @@ const Chat = () => {
 
 	const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(event.target.value);
+	};
+
+	const scrollAuto = () => {
+		const chatContainer = document.getElementById(chatContainerId);
+
+		if (!chatContainer) return false;
+
+		chatContainer.scrollTop = chatContainer.scrollHeight;
 	};
 
 	// メッセージ送信とChatGPTからのレスポンスを表示する
@@ -77,6 +87,8 @@ const Chat = () => {
 							return chat;
 						}),
 					);
+
+					scrollAuto();
 				} catch (error) {
 					console.error(error);
 				}
@@ -131,6 +143,7 @@ const Chat = () => {
 						width: '100%',
 						overflowY: 'scroll',
 					}}
+					id={chatContainerId}
 				>
 					{chatHistory.map((chat) => (
 						<Balloon
