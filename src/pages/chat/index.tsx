@@ -16,7 +16,7 @@ const Chat = () => {
 		setMessage(event.target.value);
 	};
 
-	const  scrollAuto = () => {
+	const scrollAuto = () => {
 		const chatContainer = document.getElementById(chatContainerId);
 
 		if (!chatContainer) return false;
