@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { Balloon } from '@/components/Balloon';
 import type { Messages } from '@/types/openAi';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const chatContainerId = 'chat-container';
 
@@ -12,16 +12,42 @@ const Chat = () => {
 	const [message, setMessage] = useState('');
 	const theme = useTheme();
 
+	const chatEndRef = useRef<HTMLDivElement | null>(null);
+	const isAtBottomRef = useRef(true);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				isAtBottomRef.current = entries[0].isIntersecting;
+			},
+			{
+				threshold: 1.0, // 全体が表示されているかどうかを判断
+			},
+		);
+
+		if (chatEndRef.current) {
+			observer.observe(chatEndRef.current);
+		}
+
+		return () => {
+			if (chatEndRef.current) {
+				observer.unobserve(chatEndRef.current);
+			}
+		};
+	}, []);
+
+	// チャットに文字列が追加されたときに、チャットをスクロールする
+	// コード内でchatHistoryは直接参照されていないが、ここが更新されたときにスクロールの処理が必要なため、chatHistoryを依存リストに追加
+	// linterによる警告はコメントによて抑制
+	// biome-ignore lint:  lint/correctness/useExhaustiveDependencies
+	useEffect(() => {
+		if (isAtBottomRef.current) {
+			chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [chatHistory]);
+
 	const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(event.target.value);
-	};
-
-	const scrollAuto = () => {
-		const chatContainer = document.getElementById(chatContainerId);
-
-		if (!chatContainer) return false;
-
-		chatContainer.scrollTop = chatContainer.scrollHeight;
 	};
 
 	// メッセージ送信とChatGPTからのレスポンスを表示する
@@ -87,8 +113,6 @@ const Chat = () => {
 							return chat;
 						}),
 					);
-
-					scrollAuto();
 				} catch (error) {
 					console.error(error);
 				}
@@ -152,6 +176,7 @@ const Chat = () => {
 							direction={chat.role === 'user' ? 'left' : 'right'}
 						/>
 					))}
+					<div ref={chatEndRef} />
 				</Box>
 				<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
 					<TextField
