@@ -1,13 +1,19 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { Balloon } from '../Balloon';
 import { useChatLogic } from '@/features/chat/hooks/useChatLogic';
+import { Balloon } from '../Balloon';
 
 const chatContainerId = 'chat-container';
 
 export const Chat = () => {
-	const { chatHistory, message, chatEndRef, handleChangeMessage, handleSendMessage } = useChatLogic();
+	const {
+		chatHistory,
+		message,
+		chatEndRef,
+		handleChangeMessage,
+		handleSendMessage,
+	} = useChatLogic();
 
 	return (
 		<>
