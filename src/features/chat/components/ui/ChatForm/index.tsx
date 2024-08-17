@@ -12,7 +12,7 @@ export const ChatForm: FC<Props> = ({
 	handleSendMessage,
 	message,
 }) => {
-  const theme = useTheme();
+	const theme = useTheme();
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && e.ctrlKey) {
@@ -24,7 +24,16 @@ export const ChatForm: FC<Props> = ({
 
 	return (
 		<Box>
-			<Typography align='right' sx={{fontSize: '12px', paddingRight: '16px', color: theme.palette.secondary.dark }}>ctrl + enterで送信</Typography>
+			<Typography
+				align="right"
+				sx={{
+					fontSize: '12px',
+					paddingRight: '16px',
+					color: theme.palette.secondary.dark,
+				}}
+			>
+				ctrl + enterで送信
+			</Typography>
 			<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
 				<TextField
 					label="メッセージを入力"
@@ -34,7 +43,11 @@ export const ChatForm: FC<Props> = ({
 					onChange={handleChangeMessage}
 					onAbort={handleKeyDown}
 				/>
-				<Button variant="contained" onClick={handleSendMessage} disabled={isDisabled}>
+				<Button
+					variant="contained"
+					onClick={handleSendMessage}
+					disabled={isDisabled}
+				>
 					送信
 				</Button>
 			</Box>
