@@ -1,10 +1,10 @@
 import { Layout } from '@/components/Layout';
-import { Chat } from '../../ui/Chat';
+import { ChatMain } from '../../ui/ChatMain';
 
 const ChatPage = () => {
 	return (
 		<Layout>
-			<Chat />
+			<ChatMain />
 		</Layout>
 	);
 };

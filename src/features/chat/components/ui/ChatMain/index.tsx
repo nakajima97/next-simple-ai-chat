@@ -6,7 +6,7 @@ import { Balloon } from '../Balloon';
 
 const chatContainerId = 'chat-container';
 
-export const Chat = () => {
+export const ChatMain = () => {
 	const {
 		chatHistory,
 		message,
