@@ -9,7 +9,9 @@ type Props = {
 export const Layout = ({ children }: Props) => {
 	return (
 		<Box sx={{ display: 'flex', height: '100dvh' }}>
-			<Sidebar />
+			<Box sx={{ flexShrink: 0 }}>
+				<Sidebar />
+			</Box>
 			<Divider orientation="vertical" />
 			<Box
 				sx={{
