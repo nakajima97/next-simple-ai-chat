@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from '@mui/material';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 
 type Props = {
 	handleChangeMessage: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +19,7 @@ export const ChatForm: FC<Props> = ({
 				sx={{ flexGrow: 1 }}
 				onChange={handleChangeMessage}
 				value={message}
+				multiline
 			/>
 			<Button variant="contained" onClick={handleSendMessage}>
 				送信
