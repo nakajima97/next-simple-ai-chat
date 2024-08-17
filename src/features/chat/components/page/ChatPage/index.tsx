@@ -1,12 +1,12 @@
-import { Layout } from "@/components/Layout"
-import { Chat } from "../../ui/Chat"
+import { Layout } from '@/components/Layout';
+import { Chat } from '../../ui/Chat';
 
 const ChatPage = () => {
 	return (
 		<Layout>
 			<Chat />
 		</Layout>
-	)
-}
+	);
+};
 
-export default ChatPage
+export default ChatPage;

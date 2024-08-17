@@ -1,9 +1,9 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { Balloon } from '../Balloon';
 import type { Messages } from '@/types/openAi';
 import { useEffect, useRef, useState } from 'react';
+import { Balloon } from '../Balloon';
 
 const chatContainerId = 'chat-container';
 
@@ -121,7 +121,7 @@ export const Chat = () => {
 	};
 
 	return (
-    <>
+		<>
 			<Box
 				sx={{
 					flexGrow: 1,
@@ -151,6 +151,6 @@ export const Chat = () => {
 					送信
 				</Button>
 			</Box>
-    </>
+		</>
 	);
 };
