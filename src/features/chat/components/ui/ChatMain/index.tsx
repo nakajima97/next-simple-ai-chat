@@ -1,9 +1,6 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-
 import { useChatLogic } from '@/features/chat/hooks/useChatLogic';
-import { Balloon } from '../Balloon';
 import { ChatHistory } from '../ChatHistory';
+import { ChatForm } from '../ChatForm';
 
 export const ChatMain = () => {
 	const {
@@ -17,17 +14,7 @@ export const ChatMain = () => {
 	return (
 		<>
 			<ChatHistory chatHistory={chatHistory} chatEndRef={chatEndRef} />
-			<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
-				<TextField
-					label="メッセージを入力"
-					sx={{ flexGrow: 1 }}
-					onChange={handleChangeMessage}
-					value={message}
-				/>
-				<Button variant="contained" onClick={handleSendMessage}>
-					送信
-				</Button>
-			</Box>
+			<ChatForm message={message} handleChangeMessage={handleChangeMessage} handleSendMessage={handleSendMessage} />
 		</>
 	);
 };
