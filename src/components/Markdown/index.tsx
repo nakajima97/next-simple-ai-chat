@@ -17,7 +17,7 @@ export const Markdown = ({ text }: Props) => {
 		})();
 	}, [text]);
 
-  // HTML文字列をそのまま表示するため、dangerouslySetInnerHTMLを使用
+	// HTML文字列をそのまま表示するため、dangerouslySetInnerHTMLを使用
 	// biome-ignore lint: lint/security/noDangerouslySetInnerHtml
 	return <div dangerouslySetInnerHTML={{ __html: html }} />;
 };
