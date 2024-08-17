@@ -3,8 +3,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { useChatLogic } from '@/features/chat/hooks/useChatLogic';
 import { Balloon } from '../Balloon';
-
-const chatContainerId = 'chat-container';
+import { ChatHistory } from '../ChatHistory';
 
 export const ChatMain = () => {
 	const {
@@ -17,24 +16,7 @@ export const ChatMain = () => {
 
 	return (
 		<>
-			<Box
-				sx={{
-					flexGrow: 1,
-					padding: '10px',
-					width: '100%',
-					overflowY: 'scroll',
-				}}
-				id={chatContainerId}
-			>
-				{chatHistory.map((chat) => (
-					<Balloon
-						key={chat.id}
-						text={chat.content}
-						direction={chat.role === 'user' ? 'left' : 'right'}
-					/>
-				))}
-				<div ref={chatEndRef} />
-			</Box>
+			<ChatHistory chatHistory={chatHistory} chatEndRef={chatEndRef} />
 			<Box sx={{ display: 'flex', gap: 1, padding: '8px' }}>
 				<TextField
 					label="メッセージを入力"
