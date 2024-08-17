@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 type Props = {
 	handleChangeMessage: (e: React.ChangeEvent<HTMLInputElement>) => void;
