@@ -1,6 +1,6 @@
 import { useChatLogic } from '@/features/chat/hooks/useChatLogic';
-import { ChatHistory } from '../ChatHistory';
 import { ChatForm } from '../ChatForm';
+import { ChatHistory } from '../ChatHistory';
 
 export const ChatMain = () => {
 	const {
@@ -14,7 +14,11 @@ export const ChatMain = () => {
 	return (
 		<>
 			<ChatHistory chatHistory={chatHistory} chatEndRef={chatEndRef} />
-			<ChatForm message={message} handleChangeMessage={handleChangeMessage} handleSendMessage={handleSendMessage} />
+			<ChatForm
+				message={message}
+				handleChangeMessage={handleChangeMessage}
+				handleSendMessage={handleSendMessage}
+			/>
 		</>
 	);
 };
