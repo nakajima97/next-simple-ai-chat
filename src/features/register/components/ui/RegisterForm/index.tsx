@@ -5,16 +5,41 @@ import {
 	Button,
 	Grid,
 	Link,
-	Paper,
 	TextField,
 	Typography,
 } from '@mui/material';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import type React from 'react';
+import { useState } from 'react';
+import { getApp } from '@/libs/firebase/firebase';
+import { useRouter } from 'next/router';
 
 export const RegisterForm = () => {
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		console.log('submit');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const router = useRouter();
+
+	const app = getApp();
+	const auth = getAuth(app);
+
+	const handleSubmit = async () => {
+		try {
+			const credential = await createUserWithEmailAndPassword(auth, email, password);
+
+			router.push('/chat');
+		} catch (error) {
+			console.error(error);
+		}
 	};
+
+	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(event.target.value);
+	}
+
+	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(event.target.value);
+	}
 
 	return (
 		<Box
@@ -32,7 +57,7 @@ export const RegisterForm = () => {
 			<Typography component="h1" variant="h5">
 				Sign up
 			</Typography>
-			<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+			<Box sx={{ mt: 1 }}>
 				<TextField
 					margin="normal"
 					required
@@ -42,6 +67,7 @@ export const RegisterForm = () => {
 					name="email"
 					autoComplete="email"
 					autoFocus
+					onChange={handleEmailChange}
 				/>
 				<TextField
 					margin="normal"
@@ -52,12 +78,14 @@ export const RegisterForm = () => {
 					type="password"
 					id="password"
 					autoComplete="current-password"
+					onChange={handlePasswordChange}
 				/>
 				<Button
-					type="submit"
+					type="button"
 					fullWidth
 					variant="contained"
 					sx={{ mt: 3, mb: 2 }}
+					onClick={handleSubmit}
 				>
 					SIGN UP
 				</Button>
