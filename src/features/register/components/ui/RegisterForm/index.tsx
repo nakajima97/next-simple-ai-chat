@@ -1,3 +1,4 @@
+import { getApp } from '@/libs/firebase/firebase';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
 	Avatar,
@@ -9,10 +10,9 @@ import {
 	Typography,
 } from '@mui/material';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { useRouter } from 'next/router';
 import type React from 'react';
 import { useState } from 'react';
-import { getApp } from '@/libs/firebase/firebase';
-import { useRouter } from 'next/router';
 
 export const RegisterForm = () => {
 	const [email, setEmail] = useState('');
@@ -25,7 +25,11 @@ export const RegisterForm = () => {
 
 	const handleSubmit = async () => {
 		try {
-			const credential = await createUserWithEmailAndPassword(auth, email, password);
+			const credential = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
 
 			router.push('/chat');
 		} catch (error) {
@@ -35,11 +39,11 @@ export const RegisterForm = () => {
 
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value);
-	}
+	};
 
 	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value);
-	}
+	};
 
 	return (
 		<Box
