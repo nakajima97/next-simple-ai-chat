@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
 
@@ -10,6 +10,7 @@ export const Layout = ({ children }: Props) => {
 	return (
 		<Box sx={{ display: 'flex', height: '100dvh' }}>
 			<Sidebar />
+			<Divider orientation="vertical" />
 			<Box
 				sx={{
 					flexGrow: 1,
