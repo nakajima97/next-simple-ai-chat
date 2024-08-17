@@ -19,7 +19,7 @@ const Balloon = ({ text, direction = 'left' }: BallonProps) => {
 
 	const rightStyles = {
 		alignSelf: 'flex-end',
-		backgroundColor: theme.palette.secondary.light,
+		backgroundColor: theme.palette.secondary.main,
 		color: theme.palette.secondary.contrastText,
 		marginRight: '50px',
 	};

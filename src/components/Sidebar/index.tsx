@@ -15,7 +15,7 @@ export const Sidebar = () => {
 					ChatApp
 				</Typography>
 			</Box>
-			<Box>
+			<Box sx={{ padding: '8px' }}>
 				<Button variant="outlined" sx={{ width: '100%' }}>
 					ログアウト
 				</Button>

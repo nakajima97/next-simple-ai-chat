@@ -7,7 +7,9 @@ export const themeOptions: ThemeOptions = {
 			main: '#56D7D0',
 		},
 		secondary: {
-			main: '#9c27b0',
+			main: '#cccccc',
+			light: '#e6e6e650',
+			dark: '#666666',
 		},
 	},
 };
