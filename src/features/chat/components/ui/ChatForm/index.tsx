@@ -20,6 +20,8 @@ export const ChatForm: FC<Props> = ({
 		}
 	};
 
+	const isDisabled = message.trim() === '';
+
 	return (
 		<Box>
 			<Typography align='right' sx={{fontSize: '12px', paddingRight: '16px', color: theme.palette.secondary.dark }}>ctrl + enterで送信</Typography>
@@ -32,7 +34,7 @@ export const ChatForm: FC<Props> = ({
 					onChange={handleChangeMessage}
 					onAbort={handleKeyDown}
 				/>
-				<Button variant="contained" onClick={handleSendMessage}>
+				<Button variant="contained" onClick={handleSendMessage} disabled={isDisabled}>
 					送信
 				</Button>
 			</Box>

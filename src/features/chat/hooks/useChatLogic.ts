@@ -45,12 +45,18 @@ export const useChatLogic = () => {
 
 	// メッセージ送信とChatGPTからのレスポンスを表示する
 	const handleSendMessage = async () => {
+		const sendMessage = message.trim();
+
+		if (!sendMessage) {
+			return;
+		}
+
 		setChatHistory((prevChatHistory) => [
 			...prevChatHistory,
-			{ role: 'user', content: message, id: Date.now().toString() },
+			{ role: 'user', content: sendMessage, id: Date.now().toString() },
 		]);
 
-		const messages = [...chatHistory, { role: 'user', content: message }];
+		const messages = [...chatHistory, { role: 'user', content: sendMessage }];
 
 		setMessage('');
 
