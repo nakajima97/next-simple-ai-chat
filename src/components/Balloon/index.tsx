@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { Markdown } from '../Markdown';
 
 type BallonProps = {
 	text: string;
@@ -34,7 +35,7 @@ const Balloon = ({ text, direction = 'left' }: BallonProps) => {
 				...(direction === 'left' ? leftStyles : rightStyles),
 			}}
 		>
-			<Typography variant="body1">{text}</Typography>
+			<Markdown text={text} />
 		</Box>
 	);
 };
