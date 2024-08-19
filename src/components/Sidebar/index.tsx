@@ -15,7 +15,7 @@ export const Sidebar = () => {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	return (
 		<Box
@@ -33,7 +33,11 @@ export const Sidebar = () => {
 				</Typography>
 			</Box>
 			<Box sx={{ padding: '8px' }}>
-				<Button variant="outlined" sx={{ width: '100%' }} onClick={handleLogout}>
+				<Button
+					variant="outlined"
+					sx={{ width: '100%' }}
+					onClick={handleLogout}
+				>
 					ログアウト
 				</Button>
 			</Box>
