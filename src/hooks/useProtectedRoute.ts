@@ -1,36 +1,41 @@
-import { getAuth } from "@/libs/firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/router";
+import { getAuth } from '@/libs/firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export const useProtectedRoute = () => {
-  const router = useRouter();
+	const [isLoading, setIsLoading] = useState(true);
+	const router = useRouter();
 
-  /**
-   * ログインしていない場合はログインページにリダイレクトする
-   */
-  const redirectToLogin = () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push("/");
-      }
-    });
-  }
+	/**
+	 * ログインしていない場合はログインページにリダイレクトする
+	 */
+	const redirectToLogin = () => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			setIsLoading(false);
+			if (!user) {
+				router.push('/');
+			}
+		});
+	};
 
-  /**
-   * ログインしている場合はチャットページにリダイレクトする
-   */
-  const redirectToChat = () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        router.push("/chat");
-      }
-    });
-  }
+	/**
+	 * ログインしている場合はチャットページにリダイレクトする
+	 */
+	const redirectToChat = () => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			setIsLoading(false);
+			if (user) {
+				router.push('/chat');
+			}
+		});
+	};
 
-  return {
-    redirectToLogin,
-    redirectToChat,
-  };
-}
+	return {
+		redirectToLogin,
+		redirectToChat,
+		isLoading,
+	};
+};
