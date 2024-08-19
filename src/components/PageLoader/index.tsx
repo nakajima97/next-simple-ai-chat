@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import * as React from 'react';
 
 const CircularIndeterminate = () => {
-  const theme = useTheme();
+	const theme = useTheme();
 
 	return (
 		<Box
@@ -17,10 +17,10 @@ const CircularIndeterminate = () => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-        backgroundColor: theme.palette.primary.light,
+				backgroundColor: theme.palette.primary.light,
 			}}
 		>
-			<CircularProgress color='info'/>
+			<CircularProgress color="info" />
 		</Box>
 	);
 };
