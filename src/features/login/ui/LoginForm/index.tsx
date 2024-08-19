@@ -1,3 +1,4 @@
+import { getApp } from '@/libs/firebase/firebase';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
 	Avatar,
@@ -7,19 +8,43 @@ import {
 	FormControlLabel,
 	Grid,
 	Link,
-	Paper,
 	TextField,
 	Typography,
 } from '@mui/material';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
   const router = useRouter();
 
-	const handleSubmit = () => {
-		console.log('submit');
-		router.push('/chat');
+  const app = getApp();
+  const auth = getAuth(app);
+
+	const handleSubmit = async () => {
+    try {
+      console.log('submit');
+
+      await signInWithEmailAndPassword(auth, email, password)
+
+      router.push('/chat');
+    } catch (error) {
+      console.error(error);
+    }
 	};
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  }
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  }
+
+  const canLogin = email !== '' && password !== '';
 
   return (
     <Box
@@ -47,6 +72,8 @@ export const LoginForm = () => {
 						name="email"
 						autoComplete="email"
 						autoFocus
+            value={email}
+            onChange={handleEmailChange}
 					/>
 					<TextField
 						margin="normal"
@@ -57,6 +84,8 @@ export const LoginForm = () => {
 						type="password"
 						id="password"
 						autoComplete="current-password"
+            value={password}
+            onChange={handlePasswordChange}
 					/>
 					<FormControlLabel
 						control={<Checkbox value="remember" color="primary" />}
@@ -67,6 +96,7 @@ export const LoginForm = () => {
 						fullWidth
 						variant="contained"
 						sx={{ mt: 3, mb: 2 }}
+            disabled={!canLogin}
 						onClick={handleSubmit}
 					>
 						Sign In
