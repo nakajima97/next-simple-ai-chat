@@ -4,17 +4,18 @@ import {
 	Avatar,
 	Box,
 	Button,
+	Checkbox,
+	FormControlLabel,
 	Grid,
 	Link,
 	TextField,
 	Typography,
 } from '@mui/material';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import type React from 'react';
 import { useState } from 'react';
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -24,11 +25,9 @@ export const RegisterForm = () => {
 
 	const handleSubmit = async () => {
 		try {
-			const credential = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password,
-			);
+			console.log('submit');
+
+			await signInWithEmailAndPassword(auth, email, password);
 
 			router.push('/chat');
 		} catch (error) {
@@ -36,13 +35,15 @@ export const RegisterForm = () => {
 		}
 	};
 
-	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(event.target.value);
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
 	};
 
-	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setPassword(event.target.value);
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.target.value);
 	};
+
+	const canLogin = email !== '' && password !== '';
 
 	return (
 		<Box
@@ -58,7 +59,7 @@ export const RegisterForm = () => {
 				<LockOutlinedIcon />
 			</Avatar>
 			<Typography component="h1" variant="h5">
-				Sign up
+				Sign in
 			</Typography>
 			<Box sx={{ mt: 1 }}>
 				<TextField
@@ -70,6 +71,7 @@ export const RegisterForm = () => {
 					name="email"
 					autoComplete="email"
 					autoFocus
+					value={email}
 					onChange={handleEmailChange}
 				/>
 				<TextField
@@ -81,21 +83,32 @@ export const RegisterForm = () => {
 					type="password"
 					id="password"
 					autoComplete="current-password"
+					value={password}
 					onChange={handlePasswordChange}
+				/>
+				<FormControlLabel
+					control={<Checkbox value="remember" color="primary" />}
+					label="アカウントを記憶する"
 				/>
 				<Button
 					type="button"
 					fullWidth
 					variant="contained"
 					sx={{ mt: 3, mb: 2 }}
+					disabled={!canLogin}
 					onClick={handleSubmit}
 				>
-					SIGN UP
+					Sign In
 				</Button>
 				<Grid container>
+					<Grid item xs>
+						<Link href="#" variant="body2">
+							パスワードを忘れた場合はこちら
+						</Link>
+					</Grid>
 					<Grid item>
-						<Link href="/" variant="body2">
-							ログイン画面に戻る
+						<Link href="/register" variant="body2">
+							新規登録
 						</Link>
 					</Grid>
 				</Grid>
