@@ -1,5 +1,5 @@
 import AuthLayout from '@/components/AuthLayout';
-import { LoginForm } from '../ui/LoginForm';
+import { LoginForm } from '../../ui/LoginForm';
 
 export default function Home() {
 	return (
