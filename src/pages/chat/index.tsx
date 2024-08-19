@@ -5,8 +5,6 @@ import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 const chat = () => {
 	const { redirectToLogin, isLoading } = useProtectedRoute();
 
-	console.log({ isLoading });
-
 	// ログインしていない場合はログインページにリダイレクトする
 	redirectToLogin();
 
