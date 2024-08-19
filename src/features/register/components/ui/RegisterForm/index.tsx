@@ -1,4 +1,4 @@
-import { getApp } from '@/libs/firebase/firebase';
+import { getAuth } from '@/libs/firebase/firebase';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
 	Avatar,
@@ -9,7 +9,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import type React from 'react';
 import { useState } from 'react';
@@ -20,8 +20,7 @@ export const RegisterForm = () => {
 
 	const router = useRouter();
 
-	const app = getApp();
-	const auth = getAuth(app);
+	const auth = getAuth();
 
 	const handleSubmit = async () => {
 		try {
