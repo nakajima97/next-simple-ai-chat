@@ -5,6 +5,7 @@ export const themeOptions: ThemeOptions = {
 		mode: 'light',
 		primary: {
 			main: '#56D7D0',
+			light: '#bbefec',
 		},
 		secondary: {
 			main: '#cccccc',
