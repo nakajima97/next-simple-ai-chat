@@ -36,5 +36,5 @@ export const useAutoScroll = ({ messages }: UseAutoScrollArg) => {
     }
   }, [messages]);
 
-  return { scrollRouteRef, scrollToBottom, isAtBottomRef, handleScroll };
+  return { scrollRouteRef, handleScroll };
 }
