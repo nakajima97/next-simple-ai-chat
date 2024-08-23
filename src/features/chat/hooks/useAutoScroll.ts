@@ -23,7 +23,7 @@ export const useAutoScroll = ({ messages }: UseAutoScrollArg) => {
     if (scrollRouteRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = scrollRouteRef.current;
       // スクロールが最下部から一定距離以内に来た場合に判定を行う
-      const scrollThreshold = 100; // 例として100px
+      const scrollThreshold = 100;
       const isNearBottom = scrollHeight - scrollTop - scrollThreshold <= clientHeight;
 
       setCanScrollBottom(isNearBottom);
