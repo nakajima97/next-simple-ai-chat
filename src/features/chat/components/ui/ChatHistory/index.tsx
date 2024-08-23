@@ -1,8 +1,8 @@
+import { useAutoScroll } from '@/features/chat/hooks/useAutoScroll';
 import type { Messages } from '@/types/openAi';
 import { Box } from '@mui/material';
 import type { MutableRefObject } from 'react';
 import { Balloon } from '../Balloon';
-import { useAutoScroll } from '@/features/chat/hooks/useAutoScroll';
 
 type Props = {
 	chatHistory: Messages;
@@ -12,7 +12,9 @@ type Props = {
 const chatContainerId = 'chat-container';
 
 export const ChatHistory = ({ chatHistory, chatEndRef }: Props) => {
-	const { scrollRouteRef, handleScroll } = useAutoScroll({ messages: chatHistory });
+	const { scrollRouteRef, handleScroll } = useAutoScroll({
+		messages: chatHistory,
+	});
 
 	return (
 		<Box
