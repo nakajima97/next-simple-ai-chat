@@ -9,7 +9,7 @@ const chat = () => {
 	// ログインしていない場合はログインページにリダイレクトする
 	useEffect(() => {
 		redirectToLogin();
-	}, []);
+	}, [redirectToLogin]);
 
 	if (isLoading) {
 		return <CircularIndeterminate />;
