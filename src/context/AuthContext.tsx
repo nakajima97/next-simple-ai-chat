@@ -1,11 +1,11 @@
+import { Loading } from '@/components/Loading';
 import { getAuth } from '@/libs/firebase/firebase';
 import { type User, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { type FC, createContext, useState } from 'react';
+import { type FC, createContext, useEffect, useState } from 'react';
 
 type AuthContextType = {
 	user: User | undefined;
-	isLoading: boolean;
 };
 
 type AuthProviderProps = {
@@ -25,20 +25,27 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	const auth = getAuth();
 
 	// ログイン状態が変更されたときに不適切なページにいた際に適切なページにリダイレクトする
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			setUser(user);
-			// ログインしている場合はチャットページにリダイレクトする
-			unprotectedRoutes.includes(router.pathname) && router.push('/chat');
-		} else {
-			// ログインしていない場合はログインページにリダイレクトする
-			!unprotectedRoutes.includes(router.pathname) && router.push('/');
-		}
-	});
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, async (user) => {
+			if (user) {
+				setUser(user);
+				// ログインしている場合はチャットページにリダイレクトする
+				unprotectedRoutes.includes(router.pathname) &&
+					(await router.push('/chat'));
+			} else {
+				// ログインしていない場合はログインページにリダイレクトする
+				!unprotectedRoutes.includes(router.pathname) &&
+					(await router.push('/'));
+			}
+			setIsLoading(false);
+		});
+
+		return () => unsubscribe();
+	}, [auth, router]);
 
 	return (
-		<AuthContext.Provider value={{ user, isLoading }}>
-			{children}
+		<AuthContext.Provider value={{ user }}>
+			{isLoading ? <Loading /> : children}
 		</AuthContext.Provider>
 	);
 };
