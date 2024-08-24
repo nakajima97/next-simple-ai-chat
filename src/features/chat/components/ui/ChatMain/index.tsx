@@ -3,12 +3,8 @@ import { ChatForm } from '../ChatForm';
 import { ChatHistory } from '../ChatHistory';
 
 export const ChatMain = () => {
-	const {
-		chatHistory,
-		message,
-		handleChangeMessage,
-		handleSendMessage,
-	} = useChatLogic();
+	const { chatHistory, message, handleChangeMessage, handleSendMessage } =
+		useChatLogic();
 
 	return (
 		<>
