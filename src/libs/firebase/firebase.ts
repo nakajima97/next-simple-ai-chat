@@ -24,7 +24,5 @@ export const getApp = () => {
 export const getAuth = () => {
 	const app = getApp();
 
-	console.log({ app });
-
 	return getFirebaseAuth(app);
 };

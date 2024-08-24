@@ -25,8 +25,6 @@ export const LoginForm = () => {
 
 	const handleSubmit = async () => {
 		try {
-			console.log('submit');
-
 			await signInWithEmailAndPassword(auth, email, password);
 
 			router.push('/chat');
