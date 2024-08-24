@@ -6,12 +6,11 @@ import { Balloon } from '../Balloon';
 
 type Props = {
 	chatHistory: Messages;
-	chatEndRef: MutableRefObject<HTMLDivElement | null>;
 };
 
 const chatContainerId = 'chat-container';
 
-export const ChatHistory = ({ chatHistory, chatEndRef }: Props) => {
+export const ChatHistory = ({ chatHistory }: Props) => {
 	const { scrollRouteRef, handleScroll } = useAutoScroll({
 		messages: chatHistory,
 	});
@@ -34,7 +33,6 @@ export const ChatHistory = ({ chatHistory, chatEndRef }: Props) => {
 					direction={chat.role === 'user' ? 'left' : 'right'}
 				/>
 			))}
-			<div ref={chatEndRef} />
 		</Box>
 	);
 };

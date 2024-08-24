@@ -6,14 +6,13 @@ export const ChatMain = () => {
 	const {
 		chatHistory,
 		message,
-		chatEndRef,
 		handleChangeMessage,
 		handleSendMessage,
 	} = useChatLogic();
 
 	return (
 		<>
-			<ChatHistory chatHistory={chatHistory} chatEndRef={chatEndRef} />
+			<ChatHistory chatHistory={chatHistory} />
 			<ChatForm
 				message={message}
 				handleChangeMessage={handleChangeMessage}
