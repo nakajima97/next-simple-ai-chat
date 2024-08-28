@@ -5,40 +5,6 @@ export const useChatLogic = () => {
 	const [chatHistory, setChatHistory] = useState<Messages>([]);
 	const [message, setMessage] = useState('');
 
-	const chatEndRef = useRef<HTMLDivElement | null>(null);
-	const isAtBottomRef = useRef(true);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				isAtBottomRef.current = entries[0].isIntersecting;
-			},
-			{
-				threshold: 1.0, // 全体が表示されているかどうかを判断
-			},
-		);
-
-		if (chatEndRef.current) {
-			observer.observe(chatEndRef.current);
-		}
-
-		return () => {
-			if (chatEndRef.current) {
-				observer.unobserve(chatEndRef.current);
-			}
-		};
-	}, []);
-
-	// チャットに文字列が追加されたときに、チャットをスクロールする
-	// コード内でchatHistoryは直接参照されていないが、ここが更新されたときにスクロールの処理が必要なため、chatHistoryを依存リストに追加
-	// linterによる警告はコメントによて抑制
-	// biome-ignore lint:  lint/correctness/useExhaustiveDependencies
-	useEffect(() => {
-		if (isAtBottomRef.current) {
-			chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-		}
-	}, [chatHistory]);
-
 	const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(event.target.value);
 	};
@@ -122,7 +88,6 @@ export const useChatLogic = () => {
 	return {
 		chatHistory,
 		message,
-		chatEndRef,
 		handleChangeMessage,
 		handleSendMessage,
 	};
