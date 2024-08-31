@@ -108,10 +108,6 @@ export const LoginForm = () => {
 					value={password}
 					onChange={handlePasswordChange}
 				/>
-				<FormControlLabel
-					control={<Checkbox value="remember" color="primary" />}
-					label="アカウントを記憶する"
-				/>
 				<Button
 					type="button"
 					fullWidth
@@ -122,18 +118,11 @@ export const LoginForm = () => {
 				>
 					Sign In
 				</Button>
-				<Grid container>
-					<Grid item xs>
-						<Link href="#" variant="body2">
-							パスワードを忘れた場合はこちら
-						</Link>
-					</Grid>
-					<Grid item>
-						<Link href="/register" variant="body2">
-							新規登録
-						</Link>
-					</Grid>
-				</Grid>
+				<Box sx={{ display: 'flex', justifyContent: 'end' }}>
+					<Link href="/register" variant="body2">
+						新規登録
+					</Link>
+				</Box>
 			</Box>
 		</Box>
 	);
