@@ -20,6 +20,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
 	const router = useRouter();
 
+	// ログインしていない場合にアクセスできるページ
 	const unprotectedRoutes = ['/', '/register'];
 
 	const auth = getAuth();
