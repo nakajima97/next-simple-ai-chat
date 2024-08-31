@@ -1,49 +1,53 @@
 import { Alert, Snackbar } from '@mui/material';
-import React, { createContext, FC, useState } from 'react';
+import type React from 'react';
+import { type FC, createContext, useState } from 'react';
 
-type Alert = {
-  message: string;
-  severity: 'success' | 'error';
-}
+type AlertType = {
+	message: string;
+	severity: 'success' | 'error';
+};
 
 type AlertContextType = {
-  alert: Alert | null;
-  showAlert: (Alert: Alert) => void;
-  hideAlert: () => void;
+	alert: AlertType | null;
+	showAlert: (Alert: AlertType) => void;
+	hideAlert: () => void;
 };
 
 type AlertProviderProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export const AlertContext = createContext<AlertContextType>({
-  alert: null,
-  showAlert: () => {},
-  hideAlert: () => {},
+	alert: null,
+	showAlert: () => {},
+	hideAlert: () => {},
 });
 
 export const AlertProvider: FC<AlertProviderProps> = ({ children }) => {
-  const [alert, setAlert] = useState<Alert | null>(null);
+	const [alert, setAlert] = useState<AlertType | null>(null);
 
-  const showAlert = ({message, severity}: Alert) => {
-    setAlert({ message, severity });
-  }
+	const showAlert = ({ message, severity }: AlertType) => {
+		setAlert({ message, severity });
+	};
 
-  const hideAlert = () => {
-    setAlert(null);
-  }
+	const hideAlert = () => {
+		setAlert(null);
+	};
 
-  return (
-    <AlertContext.Provider value={{ alert: alert, showAlert, hideAlert }}>
-      {children}
-      <Snackbar open={!!alert} onClose={hideAlert} autoHideDuration={5000} anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}>
-        <Alert severity={alert?.severity}>
-          {alert?.message}
-        </Alert>
-      </Snackbar>
-    </AlertContext.Provider>
-  );
+	return (
+		<AlertContext.Provider value={{ alert: alert, showAlert, hideAlert }}>
+			{children}
+			<Snackbar
+				open={!!alert}
+				onClose={hideAlert}
+				autoHideDuration={5000}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'center',
+				}}
+			>
+				<Alert severity={alert?.severity}>{alert?.message}</Alert>
+			</Snackbar>
+		</AlertContext.Provider>
+	);
 };

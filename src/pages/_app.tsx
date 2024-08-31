@@ -1,5 +1,5 @@
-import { AuthProvider } from '@/context/AuthContext';
 import { AlertProvider } from '@/context/AlertContext';
+import { AuthProvider } from '@/context/AuthContext';
 import { themeOptions } from '@/styles/themeOptions';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import type { AppProps } from 'next/app';

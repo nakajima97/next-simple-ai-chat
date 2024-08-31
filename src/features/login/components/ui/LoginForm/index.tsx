@@ -34,13 +34,25 @@ export const LoginForm = () => {
 		} catch (error) {
 			if (error instanceof FirebaseError) {
 				console.log(error.code);
-				if (error.code === 'auth/invalid-email' || error.code === 'auth/invalid-credential') {
-					showAlert({ message: 'メールアドレスまたはパスワードが間違っています', severity: 'error' });
+				if (
+					error.code === 'auth/invalid-email' ||
+					error.code === 'auth/invalid-credential'
+				) {
+					showAlert({
+						message: 'メールアドレスまたはパスワードが間違っています',
+						severity: 'error',
+					});
 				} else {
-					showAlert({ message: 'エラーが発生したので、時間をおいてお試しください。', severity: 'error' });
+					showAlert({
+						message: 'エラーが発生したので、時間をおいてお試しください。',
+						severity: 'error',
+					});
 				}
 			} else {
-				showAlert({ message: 'エラーが発生したので、時間をおいてお試しください。', severity: 'error' });
+				showAlert({
+					message: 'エラーが発生したので、時間をおいてお試しください。',
+					severity: 'error',
+				});
 			}
 		}
 	};

@@ -27,25 +27,30 @@ export const RegisterForm = () => {
 
 	const handleSubmit = async () => {
 		try {
-			await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password,
-			);
+			await createUserWithEmailAndPassword(auth, email, password);
 
 			showAlert({ message: 'ログインしました', severity: 'success' });
 			router.push('/chat');
 		} catch (error: unknown) {
 			if (error instanceof FirebaseError) {
 				console.error(error);
-				console.log({error});
+				console.log({ error });
 				console.log(error.code);
 				if (error.code === 'auth/email-already-in-use') {
-					showAlert({ message: 'このメールアドレスは既に登録されています。', severity: 'error' });
+					showAlert({
+						message: 'このメールアドレスは既に登録されています。',
+						severity: 'error',
+					});
 				} else if (error.code === 'auth/invalid-email') {
-					showAlert({ message: 'メールアドレスの形式が正しくありません。', severity: 'error' });
+					showAlert({
+						message: 'メールアドレスの形式が正しくありません。',
+						severity: 'error',
+					});
 				} else {
-					showAlert({ message: 'エラーが発生して登録に失敗しました。', severity: 'error' });
+					showAlert({
+						message: 'エラーが発生して登録に失敗しました。',
+						severity: 'error',
+					});
 				}
 			}
 		}
