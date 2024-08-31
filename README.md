@@ -2,7 +2,7 @@
 - Node.js 22.4.1
 
 ## setup
-`yarn`
+`yarn`  
 `yarn dev`
 
 ## format
