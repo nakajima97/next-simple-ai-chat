@@ -119,8 +119,7 @@ export const LoginForm = () => {
 					Sign In
 				</Button>
 				<Grid container>
-					<Grid item xs>
-					</Grid>
+					<Grid item xs></Grid>
 					<Grid item>
 						<Link href="/register" variant="body2">
 							新規登録
