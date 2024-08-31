@@ -1,3 +1,4 @@
+import { AlertContext } from '@/context/AlertContext';
 import { getAuth } from '@/libs/firebase/firebase';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
@@ -11,13 +12,15 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
+import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 export const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const { showAlert } = useContext(AlertContext);
 
 	const router = useRouter();
 
@@ -29,7 +32,16 @@ export const LoginForm = () => {
 
 			router.push('/chat');
 		} catch (error) {
-			console.error(error);
+			if (error instanceof FirebaseError) {
+				console.log(error.code);
+				if (error.code === 'auth/invalid-email' || error.code === 'auth/invalid-credential') {
+					showAlert({ message: 'メールアドレスまたはパスワードが間違っています', severity: 'error' });
+				} else {
+					showAlert({ message: 'エラーが発生したので、時間をおいてお試しください。', severity: 'error' });
+				}
+			} else {
+				showAlert({ message: 'エラーが発生したので、時間をおいてお試しください。', severity: 'error' });
+			}
 		}
 	};
 
